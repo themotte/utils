@@ -1,0 +1,5 @@
+<Defs>
+  <ConfigDef defName="Global">
+    <dataDir>your_data_dir_here</dataDir>
+  </ConfigDef>
+</Defs>
