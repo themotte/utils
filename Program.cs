@@ -1,4 +1,8 @@
-﻿using System;
+using Newtonsoft.Json;
+using System;
+using System.IO;
+using System.Linq;
+using System.Text;
 
 class Program
 {
@@ -11,7 +15,26 @@ class Program
             parser.AddFile("xml/config.xml");
             parser.Finish();
         }
+
+        var userdb = new UserDb();
             
-        Dbg.Inf(Config.Global.dataDir);
+        foreach (var file in Directory.GetFiles(Config.Global.dataDir, "*.json", SearchOption.AllDirectories).ProgressBar())
+        {
+            var post = JsonConvert.DeserializeObject<Post>(File.ReadAllText(file));
+            userdb.Add(post);
+        }
+
+        var authorized = userdb.AuthorizedUsers().ToArray();
+
+        string result = "";
+        result += "~author: [";
+        result += string.Join(", ", authorized.OrderBy(user => user));
+        result += "]";
+
+        Dbg.Inf(result);
+
+        authorized.Shuffle();
+
+        Dbg.Inf("Random sample of authorized users: " + string.Join(" ", authorized.Take(20).Select(user => $"/u/{user}")));
     }
 }

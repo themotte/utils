@@ -1,5 +1,9 @@
 <Defs>
   <ConfigDef defName="Global">
     <dataDir>your_data_dir_here</dataDir>
+
+      <validity_totalKarma>10</validity_totalKarma>
+      <validity_bestKarma>5</validity_bestKarma>
+      <validity_uniqueDates>2</validity_uniqueDates>
   </ConfigDef>
 </Defs>
